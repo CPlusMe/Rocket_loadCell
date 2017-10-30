@@ -39,18 +39,21 @@ HX711 scale(DOUT, CLK);
 FILE myfile;
 
 void setup() {
+  //PinModes
+  
   pinMode(onLED,OUTPUT);
   pinMode(offLED,OUTPUT);
+  //pinstates
   digitalWrite(onLED,LOW);
   digitalWrite(offLED,LOW);
-  
+
+  //check sequence
   Serial.begin(9600);
-  while(!Serial)
-  {};
+  if(Serial)
   check++;
-  while(!SD.begin())//-----------------------Need to find the right value cs pin
-  {};
-  check++;
+
+  if(SD.begin())
+  check++
 
   if(check == 2)
   {
@@ -69,7 +72,7 @@ void setup() {
 }
 
 void loop() {
-myfile = SD.open(FILENAME);
+myfile = SD.open(FILENAME,FILE_WRITE);
   
   Serial.print("Reading: ");
   Serial.print(scale.get_units(), 1); //scale.get_units() returns a float
